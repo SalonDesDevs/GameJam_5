@@ -20,6 +20,7 @@ package fr.mario8705.timemachine.main;
 import fr.mario8705.timemachine.Application;
 import fr.mario8705.timemachine.MainMenuStage;
 import fr.mario8705.timemachine.RenderManager;
+import org.lwjgl.glfw.GLFW;
 
 public final class TimeMachine extends Application {
     private TimeMachine() {
@@ -37,6 +38,18 @@ public final class TimeMachine extends Application {
     protected void update(float tpf) {
         if (renderWindow.shouldClose()) {
             running = false;
+        }
+
+        if (inputManager.isKeyPressed(GLFW.GLFW_KEY_A)) {
+            System.out.println("A just pressed");
+        }
+
+        if (inputManager.isKeyReleased(GLFW.GLFW_KEY_A)) {
+            System.out.println("A just released");
+        }
+
+        if (inputManager.isKeyDown(GLFW.GLFW_KEY_Z)) {
+            System.out.println("Z is held down");
         }
     }
 

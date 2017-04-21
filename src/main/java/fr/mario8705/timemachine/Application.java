@@ -21,12 +21,16 @@ public abstract class Application {
     protected volatile boolean running;
     protected RenderWindow renderWindow;
     protected RenderManager renderManager;
+    protected InputManager inputManager;
     protected Stage currentStage;
     private Stage nextStage;
 
     public Application(String appTitle) {
         this.renderWindow = new RenderWindow(800, 600, appTitle);
         this.renderManager = new RenderManager(renderWindow);
+        this.inputManager = new InputManager();
+
+        inputManager.loadCallbacks(renderWindow);
     }
 
     public void start() {
@@ -44,6 +48,7 @@ public abstract class Application {
                 float elapsedTime = currentTime - lastFrameTime;
                 lastFrameTime = currentTime;
 
+                inputManager.beginFrame();
                 renderManager.beginFrame();
 
                 if (nextStage != null) {
@@ -96,6 +101,10 @@ public abstract class Application {
 
     public void stop() {
         running = false;
+    }
+
+    public InputManager getInputManager() {
+        return inputManager;
     }
 
     protected abstract void init();

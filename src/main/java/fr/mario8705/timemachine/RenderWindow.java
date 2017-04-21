@@ -69,6 +69,10 @@ public final class RenderWindow {
         GLFW.glfwTerminate();
     }
 
+    public long getWindowHandle() {
+        return windowHandle;
+    }
+
     public boolean shouldClose() {
         return GLFW.glfwWindowShouldClose(windowHandle);
     }
