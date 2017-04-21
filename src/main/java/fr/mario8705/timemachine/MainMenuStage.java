@@ -32,7 +32,9 @@ public final class MainMenuStage extends Stage {
 
     @Override
     public void render(RenderManager renderManager) {
-
+        if (GUI.button("Play!", (renderManager.getViewportWidth() - GUI.GUI_BUTTON_DEFAULT_WIDTH) / 2, 100)) {
+            System.exit(0);
+        }
     }
 
     @Override

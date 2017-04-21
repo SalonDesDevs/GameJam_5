@@ -19,8 +19,6 @@ package fr.mario8705.timemachine;
 
 import org.lwjgl.opengl.GL11;
 
-import java.nio.ByteBuffer;
-
 public final class RenderManager {
     public static final int FVF_POSITION        = 0x01,
                             FVF_COLOR           = 0x02;
@@ -87,6 +85,14 @@ public final class RenderManager {
 
     public void setColor(int color) {
         this.currentColor = color;
+    }
+
+    public int getViewportWidth() {
+        return renderWindow.getWidth();
+    }
+
+    public int getViewportHeight() {
+        return renderWindow.getHeight();
     }
 
     public enum PrimitiveType {

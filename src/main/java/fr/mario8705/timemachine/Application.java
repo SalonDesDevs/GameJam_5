@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package fr.mario8705.timemachine;
 
 public abstract class Application {
+    private static Application appInstance;
     protected volatile boolean running;
     protected RenderWindow renderWindow;
     protected RenderManager renderManager;
@@ -26,6 +27,8 @@ public abstract class Application {
     private Stage nextStage;
 
     public Application(String appTitle) {
+        appInstance = this;
+
         this.renderWindow = new RenderWindow(800, 600, appTitle);
         this.renderManager = new RenderManager(renderWindow);
         this.inputManager = new InputManager();
@@ -103,8 +106,16 @@ public abstract class Application {
         running = false;
     }
 
+    public RenderManager getRenderManager() {
+        return renderManager;
+    }
+
     public InputManager getInputManager() {
         return inputManager;
+    }
+
+    public static Application getInstance() {
+        return appInstance;
     }
 
     protected abstract void init();
