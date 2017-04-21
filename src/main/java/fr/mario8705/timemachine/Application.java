@@ -20,9 +20,13 @@ package fr.mario8705.timemachine;
 public abstract class Application {
     protected volatile boolean running;
     protected RenderWindow renderWindow;
+    protected RenderManager renderManager;
+    protected Stage currentStage;
+    private Stage nextStage;
 
     public Application(String appTitle) {
         this.renderWindow = new RenderWindow(800, 600, appTitle);
+        this.renderManager = new RenderManager(renderWindow);
     }
 
     public void start() {
@@ -40,10 +44,30 @@ public abstract class Application {
                 float elapsedTime = currentTime - lastFrameTime;
                 lastFrameTime = currentTime;
 
+                renderManager.beginFrame();
+
+                if (nextStage != null) {
+                    if (currentStage != null) {
+                        currentStage.destroy();
+                    }
+
+                    currentStage = nextStage;
+                    currentStage.init();
+                }
+
                 renderWindow.pollEvents();
 
+                if (currentStage != null) {
+                    currentStage.update(elapsedTime);
+                }
+
                 update(elapsedTime);
-                render();
+
+                if (currentStage != null) {
+                    currentStage.render(renderManager);
+                }
+
+                render(renderManager);
 
                 renderWindow.presentFrame();
             }
@@ -52,12 +76,22 @@ public abstract class Application {
         }
     }
 
+    public void setNextStage(Stage nextStage) {
+        this.nextStage = nextStage;
+
+        nextStage.application = this;
+    }
+
     private void appDestroy() {
-        if (renderWindow != null) {
-            renderWindow.destroy();
+        if (currentStage != null) {
+            currentStage.destroy();
         }
 
         destroy();
+
+        if (renderWindow != null) {
+            renderWindow.destroy();
+        }
     }
 
     public void stop() {
@@ -66,6 +100,6 @@ public abstract class Application {
 
     protected abstract void init();
     protected abstract void update(float tpf);
-    protected abstract void render();
+    protected abstract void render(RenderManager renderManager);
     protected abstract void destroy();
 }

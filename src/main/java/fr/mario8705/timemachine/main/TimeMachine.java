@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package fr.mario8705.timemachine.main;
 
 import fr.mario8705.timemachine.Application;
+import fr.mario8705.timemachine.MainMenuStage;
+import fr.mario8705.timemachine.RenderManager;
 
 public final class TimeMachine extends Application {
     private TimeMachine() {
@@ -31,11 +33,13 @@ public final class TimeMachine extends Application {
 
     @Override
     protected void update(float tpf) {
-
+        if (renderWindow.shouldClose()) {
+            running = false;
+        }
     }
 
     @Override
-    protected void render() {
+    protected void render(RenderManager renderManager) {
 
     }
 
