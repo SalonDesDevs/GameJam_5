@@ -15,43 +15,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.mario8705.timemachine.main;
+package fr.mario8705.timemachine;
 
-import fr.mario8705.timemachine.Application;
-import fr.mario8705.timemachine.MainMenuStage;
-import fr.mario8705.timemachine.RenderManager;
+public final class MainMenuStage extends Stage {
 
-public final class TimeMachine extends Application {
-    private TimeMachine() {
-        super("Time Machine");
-
-        setNextStage(new MainMenuStage());
-    }
 
     @Override
-    protected void init() {
+    public void init() {
 
     }
 
     @Override
-    protected void update(float tpf) {
-        if (renderWindow.shouldClose()) {
-            running = false;
-        }
-    }
-
-    @Override
-    protected void render(RenderManager renderManager) {
+    public void update(float tpf) {
 
     }
 
     @Override
-    protected void destroy() {
+    public void render(RenderManager renderManager) {
 
     }
 
-    public static void main(String[] args) {
-        TimeMachine timeMachine = new TimeMachine();
-        timeMachine.start();
+    @Override
+    public void destroy() {
+
     }
 }
